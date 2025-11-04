@@ -2598,3 +2598,142 @@ GradientBoostingClassifier does not accept missing values encoded as NaN nativel
 2025-05-14 21:09:38,060 - __main__ - INFO - Metrics: {'load_percentage': 92, 'remaining_capacity': 150.0, 'risk_assessment': 'High', 'total_weight': 1650.0, 'passenger_weight': 350, 'fuel_efficiency_impact': 21.0}
 2025-05-14 21:09:38,061 - werkzeug - INFO - 127.0.0.1 - - [14/May/2025 21:09:38] "POST /predict HTTP/1.1" 200 -
 2025-05-14 21:09:38,084 - werkzeug - INFO - 127.0.0.1 - - [14/May/2025 21:09:38] "GET /static/images/weight_distribution.png?t=1747237178063 HTTP/1.1" 200 -
+2025-11-05 01:40:20,540 - __main__ - WARNING - Model or scaler files not found, creating high-performance model
+2025-11-05 01:40:20,541 - __main__ - INFO - Creating high-performance model and scaler
+2025-11-05 01:40:22,138 - __main__ - INFO - Model accuracy: 0.9260
+2025-11-05 01:40:22,139 - __main__ - INFO - Model precision: 0.9461
+2025-11-05 01:40:22,140 - __main__ - INFO - Model recall: 0.9584
+2025-11-05 01:40:22,141 - __main__ - INFO - Model F1 score: 0.9522
+2025-11-05 01:40:22,141 - __main__ - INFO - Confusion matrix:
+[[189  42]
+ [ 32 737]]
+2025-11-05 01:40:28,661 - __main__ - INFO - Cross-validation scores: [0.927 0.924 0.919 0.931 0.923]
+2025-11-05 01:40:28,662 - __main__ - INFO - Mean CV score: 0.9248
+2025-11-05 01:40:28,666 - __main__ - INFO - Feature importance:
+2025-11-05 01:40:28,666 - __main__ - INFO - vehicle_type_2-wheeler: 0.0015
+2025-11-05 01:40:28,667 - __main__ - INFO - vehicle_type_4-wheeler 5-seater: 0.0010
+2025-11-05 01:40:28,667 - __main__ - INFO - vehicle_type_4-wheeler 7-seater: 0.0057
+2025-11-05 01:40:28,667 - __main__ - INFO - vehicle_type_delivery vehicle: 0.0253
+2025-11-05 01:40:28,668 - __main__ - INFO - vehicle_type_heavy vehicle: 0.0216
+2025-11-05 01:40:28,668 - __main__ - INFO - weight_scaled: 0.1652
+2025-11-05 01:40:28,668 - __main__ - INFO - max_load_capacity_scaled: 0.2034
+2025-11-05 01:40:28,669 - __main__ - INFO - passenger_count_scaled: 0.0629
+2025-11-05 01:40:28,669 - __main__ - INFO - cargo_weight_scaled: 0.5133
+2025-11-05 01:40:28,670 - __main__ - INFO - Model metrics saved to models\model_metrics.pkl
+2025-11-05 01:40:28,678 - __main__ - INFO - High-performance model saved to models\vehicle_load_model.pkl
+2025-11-05 01:40:28,679 - __main__ - INFO - Scaler saved to models\vehicle_load_scaler.pkl
+2025-11-05 01:40:28,681 - __main__ - INFO - Starting Vehicle Load Management application
+2025-11-05 01:40:28,705 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-11-05 01:40:28,705 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-05 01:40:28,706 - werkzeug - INFO -  * Restarting with stat
+2025-11-05 01:40:30,028 - __main__ - INFO - Deleted existing model file to create improved model
+2025-11-05 01:40:30,029 - __main__ - INFO - Scaler loaded successfully from models\vehicle_load_scaler.pkl
+2025-11-05 01:40:30,029 - __main__ - WARNING - Model does not have feature_names_in_ attribute
+2025-11-05 01:40:30,029 - __main__ - INFO - Model metrics loaded from models\model_metrics.pkl
+2025-11-05 01:40:30,029 - __main__ - INFO - Model accuracy: 0.926
+2025-11-05 01:40:30,029 - __main__ - ERROR - Failed to load or create model, predictions will not work
+2025-11-05 01:40:30,031 - __main__ - INFO - Starting Vehicle Load Management application
+2025-11-05 01:40:30,035 - werkzeug - WARNING -  * Debugger is active!
+2025-11-05 01:40:30,038 - werkzeug - INFO -  * Debugger PIN: 136-914-457
+2025-11-05 01:40:34,068 - werkzeug - INFO -  * Detected change in 'C:\\Users\\01may\\OneDrive\\Desktop\\Project\\Machine Learning\\Neuro-Cargo\\backend\\run.py', reloading
+2025-11-05 01:40:34,445 - werkzeug - INFO -  * Restarting with stat
+2025-11-05 01:40:35,690 - __main__ - WARNING - Model or scaler files not found, creating high-performance model
+2025-11-05 01:40:35,690 - __main__ - INFO - Creating high-performance model and scaler
+2025-11-05 01:40:37,151 - __main__ - INFO - Model accuracy: 0.9400
+2025-11-05 01:40:37,151 - __main__ - INFO - Model precision: 0.9555
+2025-11-05 01:40:37,151 - __main__ - INFO - Model recall: 0.9678
+2025-11-05 01:40:37,151 - __main__ - INFO - Model F1 score: 0.9616
+2025-11-05 01:40:37,152 - __main__ - INFO - Confusion matrix:
+[[188  35]
+ [ 25 752]]
+2025-11-05 01:40:43,592 - __main__ - INFO - Cross-validation scores: [0.918 0.941 0.924 0.921 0.928]
+2025-11-05 01:40:43,593 - __main__ - INFO - Mean CV score: 0.9264
+2025-11-05 01:40:43,594 - __main__ - INFO - Feature importance:
+2025-11-05 01:40:43,594 - __main__ - INFO - vehicle_type_2-wheeler: 0.0039
+2025-11-05 01:40:43,594 - __main__ - INFO - vehicle_type_4-wheeler 5-seater: 0.0079
+2025-11-05 01:40:43,594 - __main__ - INFO - vehicle_type_4-wheeler 7-seater: 0.0054
+2025-11-05 01:40:43,594 - __main__ - INFO - vehicle_type_delivery vehicle: 0.0050
+2025-11-05 01:40:43,595 - __main__ - INFO - vehicle_type_heavy vehicle: 0.0417
+2025-11-05 01:40:43,595 - __main__ - INFO - weight_scaled: 0.1741
+2025-11-05 01:40:43,595 - __main__ - INFO - max_load_capacity_scaled: 0.2145
+2025-11-05 01:40:43,595 - __main__ - INFO - passenger_count_scaled: 0.0561
+2025-11-05 01:40:43,595 - __main__ - INFO - cargo_weight_scaled: 0.4914
+2025-11-05 01:40:43,596 - __main__ - INFO - Model metrics saved to models\model_metrics.pkl
+2025-11-05 01:40:43,603 - __main__ - INFO - High-performance model saved to models\vehicle_load_model.pkl
+2025-11-05 01:40:43,604 - __main__ - INFO - Scaler saved to models\vehicle_load_scaler.pkl
+2025-11-05 01:40:43,606 - __main__ - INFO - Starting Vehicle Load Management application
+2025-11-05 01:40:43,611 - werkzeug - WARNING -  * Debugger is active!
+2025-11-05 01:40:43,612 - werkzeug - INFO -  * Debugger PIN: 136-914-457
+2025-11-05 01:48:31,150 - __main__ - INFO - Deleted existing model file to create improved model
+2025-11-05 01:48:31,150 - __main__ - INFO - Scaler loaded successfully from C:\Users\01may\OneDrive\Desktop\Project\Machine Learning\Neuro-Cargo\models\vehicle_load_scaler.pkl
+2025-11-05 01:48:31,150 - __main__ - WARNING - Model does not have feature_names_in_ attribute
+2025-11-05 01:48:31,151 - __main__ - INFO - Model metrics loaded from C:\Users\01may\OneDrive\Desktop\Project\Machine Learning\Neuro-Cargo\models\model_metrics.pkl
+2025-11-05 01:48:31,151 - __main__ - INFO - Model accuracy: 0.94
+2025-11-05 01:48:31,151 - __main__ - ERROR - Failed to load or create model, predictions will not work
+2025-11-05 01:48:31,152 - __main__ - INFO - Starting Vehicle Load Management application
+2025-11-05 01:48:31,160 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-11-05 01:48:31,161 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-11-05 01:48:31,180 - werkzeug - INFO -  * Restarting with stat
+2025-11-05 01:48:32,262 - __main__ - WARNING - Model or scaler files not found, creating high-performance model
+2025-11-05 01:48:32,262 - __main__ - INFO - Creating high-performance model and scaler
+2025-11-05 01:48:33,580 - __main__ - INFO - Model accuracy: 0.9010
+2025-11-05 01:48:33,581 - __main__ - INFO - Model precision: 0.9229
+2025-11-05 01:48:33,581 - __main__ - INFO - Model recall: 0.9525
+2025-11-05 01:48:33,581 - __main__ - INFO - Model F1 score: 0.9375
+2025-11-05 01:48:33,581 - __main__ - INFO - Confusion matrix:
+[[159  62]
+ [ 37 742]]
+2025-11-05 01:48:39,342 - __main__ - INFO - Cross-validation scores: [0.931 0.924 0.926 0.928 0.916]
+2025-11-05 01:48:39,343 - __main__ - INFO - Mean CV score: 0.9250
+2025-11-05 01:48:39,344 - __main__ - INFO - Feature importance:
+2025-11-05 01:48:39,344 - __main__ - INFO - vehicle_type_2-wheeler: 0.0045
+2025-11-05 01:48:39,344 - __main__ - INFO - vehicle_type_4-wheeler 5-seater: 0.0042
+2025-11-05 01:48:39,344 - __main__ - INFO - vehicle_type_4-wheeler 7-seater: 0.0052
+2025-11-05 01:48:39,345 - __main__ - INFO - vehicle_type_delivery vehicle: 0.0105
+2025-11-05 01:48:39,345 - __main__ - INFO - vehicle_type_heavy vehicle: 0.0374
+2025-11-05 01:48:39,345 - __main__ - INFO - weight_scaled: 0.1615
+2025-11-05 01:48:39,345 - __main__ - INFO - max_load_capacity_scaled: 0.2197
+2025-11-05 01:48:39,345 - __main__ - INFO - passenger_count_scaled: 0.0500
+2025-11-05 01:48:39,345 - __main__ - INFO - cargo_weight_scaled: 0.5070
+2025-11-05 01:48:39,346 - __main__ - INFO - Model metrics saved to C:\Users\01may\OneDrive\Desktop\Project\Machine Learning\Neuro-Cargo\models\model_metrics.pkl
+2025-11-05 01:48:39,351 - __main__ - INFO - High-performance model saved to C:\Users\01may\OneDrive\Desktop\Project\Machine Learning\Neuro-Cargo\models\vehicle_load_model.pkl
+2025-11-05 01:48:39,352 - __main__ - INFO - Scaler saved to C:\Users\01may\OneDrive\Desktop\Project\Machine Learning\Neuro-Cargo\models\vehicle_load_scaler.pkl
+2025-11-05 01:48:39,355 - __main__ - INFO - Starting Vehicle Load Management application
+2025-11-05 01:48:39,360 - werkzeug - WARNING -  * Debugger is active!
+2025-11-05 01:48:39,362 - werkzeug - INFO -  * Debugger PIN: 136-914-457
+2025-11-05 01:48:44,394 - werkzeug - INFO -  * Detected change in 'C:\\Users\\01may\\OneDrive\\Desktop\\Project\\Machine Learning\\Neuro-Cargo\\app.py', reloading
+2025-11-05 01:48:44,732 - werkzeug - INFO -  * Restarting with stat
+2025-11-05 01:48:45,772 - __main__ - INFO - Deleted existing model file to create improved model
+2025-11-05 01:48:45,773 - __main__ - INFO - Scaler loaded successfully from models\vehicle_load_scaler.pkl
+2025-11-05 01:48:45,773 - __main__ - WARNING - Model does not have feature_names_in_ attribute
+2025-11-05 01:48:45,774 - __main__ - INFO - Model metrics loaded from models\model_metrics.pkl
+2025-11-05 01:48:45,774 - __main__ - INFO - Model accuracy: 0.901
+2025-11-05 01:48:45,774 - __main__ - ERROR - Failed to load or create model, predictions will not work
+2025-11-05 01:48:45,775 - __main__ - INFO - Starting Vehicle Load Management application
+2025-11-05 01:48:45,778 - werkzeug - WARNING -  * Debugger is active!
+2025-11-05 01:48:45,780 - werkzeug - INFO -  * Debugger PIN: 136-914-457
+2025-11-05 01:49:34,296 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 01:49:34] "GET / HTTP/1.1" 200 -
+2025-11-05 01:49:34,387 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 01:49:34] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-11-05 01:49:34,640 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 01:49:34] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-05 01:49:57,663 - __main__ - WARNING - Model not loaded, using rule-based prediction instead
+2025-11-05 01:49:57,960 - root - INFO - Histogram generated and saved to static\graphs\weight_histogram.png
+2025-11-05 01:49:58,146 - root - INFO - Histogram by category generated and saved to static\graphs\weight_histogram_by_category.png
+2025-11-05 01:49:58,241 - root - INFO - Boxplot generated and saved to static\graphs\weight_boxplot.png
+2025-11-05 01:49:58,376 - root - INFO - Boxplot by category generated and saved to static\graphs\weight_boxplot_by_category.png
+2025-11-05 01:49:58,519 - root - INFO - Scatter plot generated and saved to static\graphs\weight_vs_percentage_scatter.png
+2025-11-05 01:49:58,675 - root - INFO - Scatter plot with hue generated and saved to static\graphs\weight_vs_percentage_by_category.png
+2025-11-05 01:49:58,845 - root - INFO - Heatmap generated and saved to static\graphs\weight_correlation_heatmap.png
+2025-11-05 01:50:00,335 - root - INFO - Pair plot generated and saved to static\graphs\weight_pair_plot.png
+2025-11-05 01:50:00,489 - root - INFO - Count plot generated and saved to static\graphs\category_count_plot.png
+2025-11-05 01:50:00,580 - root - INFO - Pie chart generated and saved to static\graphs\weight_pie_detailed.png
+2025-11-05 01:50:00,644 - root - INFO - Gauge chart generated and saved to static\graphs\load_gauge.png
+2025-11-05 01:50:00,982 - root - INFO - Radar chart generated and saved to static\graphs\weight_radar_chart.png
+2025-11-05 01:50:01,384 - root - INFO - Line chart generated and saved to static\graphs\loading_timeline.png
+2025-11-05 01:50:01,676 - root - INFO - Bar chart generated and saved to static\graphs\weight_components_bar.png
+2025-11-05 01:50:01,677 - __main__ - INFO - All additional graphs generated and saved to static\graphs
+2025-11-05 01:50:01,677 - __main__ - INFO - Prediction: 1, Confidence: 0.95
+2025-11-05 01:50:01,678 - __main__ - INFO - Metrics: {'load_percentage': 94, 'remaining_capacity': 100.0, 'risk_assessment': 'High', 'total_weight': 1700.0, 'passenger_weight': 350, 'fuel_efficiency_impact': 22.0}
+2025-11-05 01:50:01,679 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 01:50:01] "POST /predict HTTP/1.1" 200 -
+2025-11-05 01:50:01,686 - werkzeug - INFO - 127.0.0.1 - - [05/Nov/2025 01:50:01] "GET /static/images/weight_distribution.png?t=1762287601681 HTTP/1.1" 200 -
