@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import logging
+import os
 from matplotlib.patches import Wedge, Circle
 import pandas as pd
 
@@ -445,8 +446,15 @@ def generate_radar_chart(data, categories, values, title="Radar Chart", figsize=
         
         # Save the figure if a path is provided
         if save_path:
-            plt.savefig(save_path, bbox_inches='tight', dpi=300)
-            logging.info(f"Radar chart generated and saved to {save_path}")
+            try:
+                # Ensure directory exists
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                # Save with lower DPI for faster generation and smaller files
+                plt.savefig(save_path, bbox_inches='tight', dpi=150, format='png')
+                logging.info(f"Radar chart generated and saved to {save_path}")
+            except Exception as e:
+                logging.error(f"Error saving radar chart to {save_path}: {e}")
+                raise
         
         return save_path
     except Exception as e:

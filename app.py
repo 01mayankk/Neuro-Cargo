@@ -550,8 +550,13 @@ def calculate_metrics(data, prediction):
         }
 
 
-def generate_graphs(data):
-    """Generate visualization graphs for the prediction"""
+def generate_graphs(data, quick_mode=False):
+    """Generate visualization graphs for the prediction
+    
+    Args:
+        data: Input data dictionary
+        quick_mode: If True, only generate essential graphs (faster, for production)
+    """
     try:
         # Create a simple pie chart for weight distribution
         plt.figure(figsize=(8, 6))
@@ -630,80 +635,141 @@ def generate_graphs(data):
                 
                 timeline_df = pd.DataFrame(timeline_data)
                 
-                # 1. Histogram of weights
-                histogram_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_histogram.png')
-                generate_histogram(weight_df, 'weight', 'Weight Distribution by Component', histogram_path)
+                # Generate graphs based on mode
+                if quick_mode:
+                    # Quick mode: Only generate essential graphs (faster for production)
+                    # 10. Pie chart (essential)
+                    try:
+                        pie_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_pie_detailed.png')
+                        generate_pie_chart(sizes, labels, 'Vehicle Weight Distribution', pie_path)
+                    except Exception as e:
+                        logger.warning(f"Pie chart generation failed: {str(e)}")
+                    
+                    # 11. Gauge chart (essential)
+                    try:
+                        gauge_path = os.path.join(app.config['GRAPHS_FOLDER'], 'load_gauge.png')
+                        generate_gauge_chart(load_percentage, 'Current Load Percentage', gauge_path)
+                    except Exception as e:
+                        logger.warning(f"Gauge chart generation failed: {str(e)}")
+                else:
+                    # Full mode: Generate all graphs (for local development)
+                    # 1. Histogram of weights
+                    try:
+                        histogram_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_histogram.png')
+                        generate_histogram(weight_df, 'weight', 'Weight Distribution by Component', histogram_path)
+                    except Exception as e:
+                        logger.warning(f"Histogram generation failed: {str(e)}")
+                    
+                    # 2. Histogram by category
+                    try:
+                        histogram_cat_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_histogram_by_category.png')
+                        generate_histogram_by_category(vehicle_df, 'weight', 'category', 'Weight by Category', histogram_cat_path)
+                    except Exception as e:
+                        logger.warning(f"Histogram by category failed: {str(e)}")
+                    
+                    # 3. Boxplot of weights
+                    try:
+                        boxplot_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_boxplot.png')
+                        generate_boxplot(vehicle_df, 'weight', 'Weight Distribution Boxplot', boxplot_path)
+                    except Exception as e:
+                        logger.warning(f"Boxplot generation failed: {str(e)}")
+                    
+                    # 4. Boxplot by category
+                    try:
+                        boxplot_cat_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_boxplot_by_category.png')
+                        generate_boxplot_by_category(vehicle_df, 'weight', 'category', 'Weight Comparison by Category', boxplot_cat_path)
+                    except Exception as e:
+                        logger.warning(f"Boxplot by category failed: {str(e)}")
+                    
+                    # 5. Scatter plot
+                    try:
+                        scatter_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_vs_percentage_scatter.png')
+                        generate_scatter_plot(vehicle_df, 'weight', 'percentage', 'Weight vs Percentage', scatter_path)
+                    except Exception as e:
+                        logger.warning(f"Scatter plot generation failed: {str(e)}")
+                    
+                    # 6. Scatter plot with hue
+                    try:
+                        scatter_hue_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_vs_percentage_by_category.png')
+                        generate_scatter_plot_with_hue(vehicle_df, 'weight', 'percentage', 'category', 'Weight vs Percentage by Category', scatter_hue_path)
+                    except Exception as e:
+                        logger.warning(f"Scatter plot with hue failed: {str(e)}")
+                    
+                    # 7. Heatmap
+                    try:
+                        corr_data = pd.DataFrame({
+                            'vehicle_weight': [vehicle_weight, passenger_weight, cargo_weight, total_weight, max_load],
+                            'passenger_weight': [passenger_weight, passenger_weight, passenger_weight, passenger_weight, passenger_weight],
+                            'cargo_weight': [cargo_weight, cargo_weight, cargo_weight, cargo_weight, cargo_weight],
+                            'total_weight': [total_weight, total_weight, total_weight, total_weight, total_weight],
+                            'max_capacity': [max_load, max_load, max_load, max_load, max_load]
+                        })
+                        heatmap_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_correlation_heatmap.png')
+                        generate_heatmap(corr_data, 'Weight Correlation Heatmap', heatmap_path)
+                    except Exception as e:
+                        logger.warning(f"Heatmap generation failed: {str(e)}")
+                    
+                    # 8. Pair plot
+                    try:
+                        pair_plot_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_pair_plot.png')
+                        pair_data = pd.DataFrame({
+                            'vehicle_weight': [vehicle_weight * (0.9 + 0.2 * np.random.random()) for _ in range(10)],
+                            'passenger_weight': [passenger_weight * (0.9 + 0.2 * np.random.random()) for _ in range(10)],
+                            'cargo_weight': [cargo_weight * (0.9 + 0.2 * np.random.random()) for _ in range(10)],
+                            'total_weight': [total_weight * (0.9 + 0.2 * np.random.random()) for _ in range(10)],
+                        })
+                        generate_pair_plot(pair_data, 'Relationships Between Weight Components', pair_plot_path)
+                    except Exception as e:
+                        logger.warning(f"Pair plot generation failed: {str(e)}")
+                    
+                    # 9. Count plot
+                    try:
+                        count_plot_path = os.path.join(app.config['GRAPHS_FOLDER'], 'category_count_plot.png')
+                        count_data = pd.DataFrame({
+                            'category': ['Vehicle', 'Passenger', 'Cargo', 'Vehicle', 'Passenger', 'Vehicle']
+                        })
+                        generate_count_plot(count_data, 'category', 'Weight Component Frequency', count_plot_path)
+                    except Exception as e:
+                        logger.warning(f"Count plot generation failed: {str(e)}")
+                    
+                    # 10. Pie chart
+                    try:
+                        pie_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_pie_detailed.png')
+                        generate_pie_chart(sizes, labels, 'Vehicle Weight Distribution', pie_path)
+                    except Exception as e:
+                        logger.warning(f"Pie chart generation failed: {str(e)}")
+                    
+                    # 11. Gauge chart
+                    try:
+                        gauge_path = os.path.join(app.config['GRAPHS_FOLDER'], 'load_gauge.png')
+                        generate_gauge_chart(load_percentage, 'Current Load Percentage', gauge_path)
+                    except Exception as e:
+                        logger.warning(f"Gauge chart generation failed: {str(e)}")
                 
-                # 2. Histogram by category
-                histogram_cat_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_histogram_by_category.png')
-                generate_histogram_by_category(vehicle_df, 'weight', 'category', 'Weight by Category', histogram_cat_path)
-                
-                # 3. Boxplot of weights
-                boxplot_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_boxplot.png')
-                generate_boxplot(vehicle_df, 'weight', 'Weight Distribution Boxplot', boxplot_path)
-                
-                # 4. Boxplot by category
-                boxplot_cat_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_boxplot_by_category.png')
-                generate_boxplot_by_category(vehicle_df, 'weight', 'category', 'Weight Comparison by Category', boxplot_cat_path)
-                
-                # 5. Scatter plot
-                scatter_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_vs_percentage_scatter.png')
-                generate_scatter_plot(vehicle_df, 'weight', 'percentage', 'Weight vs Percentage', scatter_path)
-                
-                # 6. Scatter plot with hue
-                scatter_hue_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_vs_percentage_by_category.png')
-                generate_scatter_plot_with_hue(vehicle_df, 'weight', 'percentage', 'category', 'Weight vs Percentage by Category', scatter_hue_path)
-                
-                # 7. Heatmap (create correlation data first)
-                corr_data = pd.DataFrame({
-                    'vehicle_weight': [vehicle_weight, passenger_weight, cargo_weight, total_weight, max_load],
-                    'passenger_weight': [passenger_weight, passenger_weight, passenger_weight, passenger_weight, passenger_weight],
-                    'cargo_weight': [cargo_weight, cargo_weight, cargo_weight, cargo_weight, cargo_weight],
-                    'total_weight': [total_weight, total_weight, total_weight, total_weight, total_weight],
-                    'max_capacity': [max_load, max_load, max_load, max_load, max_load]
-                })
-                heatmap_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_correlation_heatmap.png')
-                generate_heatmap(corr_data, 'Weight Correlation Heatmap', heatmap_path)
-                
-                # 8. Pair plot
-                pair_plot_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_pair_plot.png')
-                # Add a random factor to create variability for the pair plot
-                pair_data = pd.DataFrame({
-                    'vehicle_weight': [vehicle_weight * (0.9 + 0.2 * np.random.random()) for _ in range(10)],
-                    'passenger_weight': [passenger_weight * (0.9 + 0.2 * np.random.random()) for _ in range(10)],
-                    'cargo_weight': [cargo_weight * (0.9 + 0.2 * np.random.random()) for _ in range(10)],
-                    'total_weight': [total_weight * (0.9 + 0.2 * np.random.random()) for _ in range(10)],
-                })
-                generate_pair_plot(pair_data, 'Relationships Between Weight Components', pair_plot_path)
-                
-                # 9. Count plot
-                count_plot_path = os.path.join(app.config['GRAPHS_FOLDER'], 'category_count_plot.png')
-                count_data = pd.DataFrame({
-                    'category': ['Vehicle', 'Passenger', 'Cargo', 'Vehicle', 'Passenger', 'Vehicle']
-                })
-                generate_count_plot(count_data, 'category', 'Weight Component Frequency', count_plot_path)
-                
-                # 10. Pie chart with custom styling
-                pie_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_pie_detailed.png')
-                generate_pie_chart(sizes, labels, 'Vehicle Weight Distribution', pie_path)
-                
-                # 11. Gauge chart showing load percentage
-                gauge_path = os.path.join(app.config['GRAPHS_FOLDER'], 'load_gauge.png')
-                generate_gauge_chart(load_percentage, 'Current Load Percentage', gauge_path)
-                
-                # 12. Radar chart
-                radar_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_radar_chart.png')
-                radar_categories = ['Vehicle Weight', 'Passenger Weight', 'Cargo Weight', 'Available Capacity']
-                radar_values = [vehicle_weight/1000, passenger_weight/1000, cargo_weight/1000, remaining_capacity/1000]
-                generate_radar_chart(None, radar_categories, radar_values, 'Weight Distribution (tons)', save_path=radar_path)
-                
-                # 13. Line chart
-                line_path = os.path.join(app.config['GRAPHS_FOLDER'], 'loading_timeline.png')
-                generate_line_chart(timeline_df, 'time_point', 'weight_value', 'loading_phase', 'Vehicle Loading Timeline', save_path=line_path)
-                
-                # 14. Bar chart
-                bar_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_components_bar.png')
-                generate_bar_chart(vehicle_df.iloc[:3], 'component', 'weight', None, 'Weight Components', save_path=bar_path)
+                # Skip heavy graphs in quick mode (production)
+                if not quick_mode:
+                    # 12. Radar chart
+                    try:
+                        radar_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_radar_chart.png')
+                        radar_categories = ['Vehicle Weight', 'Passenger Weight', 'Cargo Weight', 'Available Capacity']
+                        radar_values = [vehicle_weight/1000, passenger_weight/1000, cargo_weight/1000, remaining_capacity/1000]
+                        generate_radar_chart(None, radar_categories, radar_values, 'Weight Distribution (tons)', save_path=radar_path)
+                    except Exception as e:
+                        logger.warning(f"Radar chart generation failed: {str(e)}")
+                    
+                    # 13. Line chart
+                    try:
+                        line_path = os.path.join(app.config['GRAPHS_FOLDER'], 'loading_timeline.png')
+                        generate_line_chart(timeline_df, 'time_point', 'weight_value', 'loading_phase', 'Vehicle Loading Timeline', save_path=line_path)
+                    except Exception as e:
+                        logger.warning(f"Line chart generation failed: {str(e)}")
+                    
+                    # 14. Bar chart
+                    try:
+                        bar_path = os.path.join(app.config['GRAPHS_FOLDER'], 'weight_components_bar.png')
+                        generate_bar_chart(vehicle_df.iloc[:3], 'component', 'weight', None, 'Weight Components', save_path=bar_path)
+                    except Exception as e:
+                        logger.warning(f"Bar chart generation failed: {str(e)}")
                 
                 logger.info(f"All additional graphs generated and saved to {app.config['GRAPHS_FOLDER']}")
             except Exception as e:
@@ -793,8 +859,13 @@ def predict_load_status(data):
         # Calculate additional metrics
         metrics = calculate_metrics(data, prediction_value)
         
-        # Generate graphs
-        graph_url = generate_graphs(data)
+        # Generate graphs (skip heavy generation in production to avoid timeout)
+        # Only generate essential graphs to stay within Render's timeout limits
+        try:
+            graph_url = generate_graphs(data, quick_mode=True)
+        except Exception as e:
+            logger.warning(f"Graph generation skipped due to error: {str(e)}")
+            graph_url = None
         
         # Log the prediction results
         logger.info(f"Prediction: {prediction_value}, Confidence: {confidence}")
